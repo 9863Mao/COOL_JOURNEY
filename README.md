@@ -1,24 +1,30 @@
-# README
+# <COOL JOURNEY>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+  観光地での思い出やよかったことなどをいろいろなユーザーに拡散できるようにするアプリ。
+  
+### サイトテーマ
+<...>人の思い出を自分の思い出に
+  
+### テーマを選んだ理由
+<...>コロナ禍の中で観光業界を盛り上げたい思いから、ユーザーの投稿でユーザー間の観光に対する興味を高めたり、今度自身が行きたい旅行の参考になればよいなと思いました。
 
-Things you may want to cover:
+### ターゲットユーザ
+<...>学生や高齢の方々など旅行に関して関心のある人。
 
-* Ruby version
+### 主な利用シーン
+<...>観光地に言った気分になりたい。今後行く予定の観光地のスポットなどを事前に知りたい。暇な時間で観光地を見て暇つぶししたい。
 
-* System dependencies
+## 設計書
+<...>https://docs.google.com/spreadsheets/d/15cQsncZAh5Qt1uArTmCfTMw2l4m_oLMQ5Hoe21JIPWA/edit?usp=sharing
 
-* Configuration
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
