@@ -1,0 +1,46 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+#map {
+  height: 60%;
+  width: 100%;
+}
+
+#header {
+  transition: all 0.5s;
+  z-index: 997;
+  transition: all 0.5s;
+  // background: rgba(103, 176, 209, 0.8);
+  background: linear-gradient(#C2EEFF, white);
+}
+
+a.btn-gradient {
+  font-size: 0.5rem;
+  color: black;
+  border-radius: 100vh;
+  background-image: linear-gradient(-20deg, #D9E5FF 0%, #EEFFFF 100%);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+a.btn-gradient:hover {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+}
+
+a.rogo {
+    font-family: 'Sacramento', cursive;
+}
+
+#main {
+}
+
+table {
+    border-collapse:  collapse; /* セルの線を重ねる */
+}
+
+th.th-width {
+    width:  100px;              /* 幅指定 */
+    height: 20px; /* 高さ指定 */
+    padding-left: 40px;
+}

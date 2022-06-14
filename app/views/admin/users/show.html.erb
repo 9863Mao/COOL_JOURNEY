@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-3">
+      <%= image_tag @user.get_profile_image(100,100) %>
+    </div>
+    <div class="col col-5">
+      <table>
+        <tr>
+          <th><label><%= @user.user_nickname %></label></th>
+          <td>さん</td>
+        </tr>
+        <tr>
+          <td><%= link_to public_user_followings_path(@user.id) do %>フォロー<%= @user.followings.count %><% end %></td>
+          <td><%= link_to public_user_followers_path(@user.id) do %>フォロワー<%= @user.followers.count %><% end %></td>
+        </tr>
+      </table>
+      <p><%= link_to "このユーザーを退会させる", edit_admin_user_path %></p>
+    </div>
+    <div class="col col-4">
+      <%= @user.self_introduction %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class='table table-hover table-inverse'>
+        <h5><strong>投稿した思い出</strong></h5>
+        <thead>
+          <tr>
+            <th>公開ステータス</th>
+            <th>ユーザー</th>
+            <th>投稿タイトル</th>
+            <th>写真</th>
+            <th>いいね数</th>
+            <th>投稿日時</th>
+          </tr>
+        </thead>
+        <% @posts.each do |post| %>
+          <tbody>
+            <tr>
+              <td><%= post.is_active %></td>
+              <td><%= post.user.user_nickname %></td>
+              <td><%= link_to public_post_path(post.id) do %> <%= post.title %><% end %></td>
+              <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><%= image_tag 'no_image', size: "50x50" %><% end %></td>
+              <td><%= post.favorites.count %></td>
+              <td><%= post.created_at.to_s(:datetime_jp) %></td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

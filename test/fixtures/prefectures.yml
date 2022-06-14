@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: MyString
+
+two:
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: 
+  g: MyString
+  model: MyString
+  Prefecture: MyString
+  name: MyString

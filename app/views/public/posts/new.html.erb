@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>新規投稿</h2>
+      <%= form_with model: @post, url: public_posts_path, method: :post do |f|%>
+      <table>
+          <tr><th>画像の添付</th><td><%= f.file_field :image, accept: "image/*" %></td></tr>
+          <tr><th>投稿のタイトル</th><td><%= f.text_field :title %></td></tr>
+          <tr><th>投稿の説明</th><td><%= f.text_area :explanation %></td></tr>
+          <tr><th>都道府県の選択</th><td><%= f.collection_select :prefecture, Prefecture.all, :name, :name, {include_blank: "都道府県一覧(必須)", prompt: false}%></td></tr>
+          <tr><th>市町村の選択</th><td><%= f.collection_select :city, [], :id, :name, include_blank: "都道府県を選択してください" %></td></tr>
+          <tr><th>番地入力</th><td><%= f.text_area :address %></td></tr>
+      </table>
+      <%= f.submit '投稿する' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // https://products.sint.co.jp/topsic/blog/json
+  $("#post_prefecture").change(function() {
+    // https://www.buildinsider.net/web/jqueryref/059
+    $.ajax('/public/posts/get_city', {
+      type: 'get',
+      data: {prefecture_name: $("#post_prefecture").val()},
+      dataType: 'json'
+    })
+    .done(function(data) {
+      $("#post_city").empty(); // 一旦市町村データをクリアする
+      
+      // データが０件の場合“都道府県を選択してください”を表示
+      // データがあれば、受け取ったデータをループで回してセレクトボックスに追加する。
+      // https://webllica.com/jquery-select-option-add-del/
+      if (data.length == 0) {
+        // データ０件の時
+        $("#post_city").append(
+            $("<option>").text("都道府県を選択してください")
+          );
+      } else {
+        data.forEach(function(city) {
+          // セレクトボックスに順次最後尾に追加
+          $("#post_city").append(
+              $("<option>").val(city.name).text(city.name)
+            );
+        })
+      }
+    })
+  });
+</script>
+
