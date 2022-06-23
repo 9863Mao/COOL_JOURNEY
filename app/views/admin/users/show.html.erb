@@ -10,11 +10,11 @@
           <td>さん</td>
         </tr>
         <tr>
-          <td><%= link_to public_user_followings_path(@user.id) do %>フォロー<%= @user.followings.count %><% end %></td>
-          <td><%= link_to public_user_followers_path(@user.id) do %>フォロワー<%= @user.followers.count %><% end %></td>
+          <td>フォロー<%= @user.followings.count %></td>
+          <td>フォロワー<%= @user.followers.count %></td>
         </tr>
       </table>
-      <p><%= link_to "このユーザーを退会させる", edit_admin_user_path %></p>
+      <p><% if @user.is_active == true %><%= link_to "このユーザーを退会させる", admin_user_unsubscribe_path(id: @user.id), method: :patch %><% end %></p>
     </div>
     <div class="col col-4">
       <%= @user.self_introduction %>
@@ -39,7 +39,7 @@
             <tr>
               <td><%= post.is_active %></td>
               <td><%= post.user.user_nickname %></td>
-              <td><%= link_to public_post_path(post.id) do %> <%= post.title %><% end %></td>
+              <td><%= link_to admin_post_path(post.id) do %> <%= post.title %><% end %></td>
               <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><%= image_tag 'no_image', size: "50x50" %><% end %></td>
               <td><%= post.favorites.count %></td>
               <td><%= post.created_at.to_s(:datetime_jp) %></td>

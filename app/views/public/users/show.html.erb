@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col col-3">
       <% if @user.is_active == false %>
-      <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle" %>
+      <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle" %><br>
     </div>
     <div class="col col-5">
       <table>
         <tr>
-          <th><label><%= @user.user_nickname %></label></th>
+          <th><label class="name"><%= @user.user_nickname %></label></th>
           <td>さん</td>
         </tr>
         <tr>
@@ -17,15 +17,16 @@
       </table>
       <% if user_signed_in? %>
         <% if @user.id == current_user.id %>
-          <%= link_to"編集する", edit_public_user_path %>
+          <%= link_to"編集する", edit_public_user_path %><br>
         <% else %>
           <% if current_user.following?(@user) %>
-            <%= link_to "フォローを解除", public_user_follows_path(@user.id), method: :delete %>
+            <%= link_to "フォローを解除", public_user_follows_path(@user.id), method: :delete %><br>
           <% else %>
-            <%= link_to "フォローする", public_user_follows_path(@user.id), method: :post %>
+            <%= link_to "フォローする", public_user_follows_path(@user.id), method: :post %><br>
           <% end %>
         <% end %>
       <% end %>
+      <%= link_to"いいねした投稿", favorites_public_user_path %>
     </div>
     <div class="col col-4">
       <%= @user.self_introduction %>
@@ -51,7 +52,7 @@
               <td><%= post.user.user_nickname %></td>
               <td><%= link_to public_post_path(post.id) do %> <%= post.title %><% end %></td>
               <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><%= image_tag 'no_image', size: "50x50" %><% end %></td>
-              <td><%= post.favorites.count %>♥</td>
+              <td id="heart"><%= post.favorites.count %>♥</td>
               <td><%= post.created_at.to_s(:datetime_jp) %></td>
             </tr>
           </tbody>
@@ -61,7 +62,7 @@
       <% else %>
       <p><b>退会したユーザーです。</b></p>
       <% end %>
-        
+
       </table>
     </div>
   </div>

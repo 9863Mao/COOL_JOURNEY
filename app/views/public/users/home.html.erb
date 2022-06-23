@@ -2,17 +2,17 @@
   <div class="row">
     <% if user_signed_in? %>
     <div class="col">
-        <h3>投稿一覧</h3>
+        <h3 id="title">投稿一覧</h3>
           <table class='table table-hover table-inverse'>
             <thead>
               <tr>
-                <th>ユーザー</th>
+                <th >ユーザー</th>
                 <th>タイトル</th>
                 <th>写真</th>
                 <th>投稿日時</th>
               </tr>
             </thead>
-            <% @posts.each do |post| %>
+            <% @posts_page.each do |post| %>
                 <% if post.is_active == true %>
                 <tbody>
                   <tr>
@@ -25,10 +25,11 @@
                 <% end %>
             <% end %>
           </table>
+            <%= paginate @posts_page %>
     </div>
     <% end %>
     <div class="col">
-      <h3>新しい投稿たちです。</h3>
+      <h3 id="title">あたらしい投稿</h3>
       <table class='table table-hover table-inverse'>
         <thead>
           <tr>
@@ -39,16 +40,16 @@
           </tr>
         </thead>
         <% @posts_new.each do |post| %>
-        <% if post.is_active == true %>
-          <tbody>
-            <tr>
-              <td><%= link_to public_user_path(post.user.id) do %><%= post.user.user_nickname %><% end %></td>
-              <td><%= link_to public_post_path(post.id) do %> <%= post.title %><% end %></td>
-              <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><%= image_tag 'no_image', size: "50x50" %><% end %></td>
-              <td><%= post.created_at.to_s(:datetime_jp) %></td>
-            </tr>
-          </tbody>
-        <% end %>
+          <% if post.is_active == true %>
+            <tbody>
+              <tr>
+                <td><%= link_to public_user_path(post.user.id) do %><%= post.user.user_nickname %><% end %></td>
+                <td><%= link_to public_post_path(post.id) do %> <%= post.title %><% end %></td>
+                <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><%= image_tag 'no_image', size: "50x50" %><% end %></td>
+                <td><%= post.created_at.to_s(:datetime_jp) %></td>
+              </tr>
+            </tbody>
+          <% end %>
         <% end %>
       </table>
     </div>

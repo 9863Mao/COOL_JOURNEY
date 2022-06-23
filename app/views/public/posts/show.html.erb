@@ -1,8 +1,9 @@
 <div class="container">
   <% if @post.is_active == true %>
   <h3><strong><%= @post.title %></strong></h3>
+  <div id='alert'><%= flash[:alert] %></div>
   <div class="row">
-    <div class="col col-5">
+    <div class="col">
       <p><%= @post.explanation %></p>
       <!--いいね-->
       <% if user_signed_in? %>
@@ -10,16 +11,18 @@
           <p><%= @post.favorites.count %>いいね！されている投稿です
           <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
           <%= link_to public_post_favorites_path(@post.id), method: :delete do %>
-            <span style="color:red;">❤︎</span>
+            <span id="heart">❤︎</span>
           <% end %></p>
         <% else %>
           <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
           <p><%= @post.favorites.count %>いいね！されている投稿です
           <%= link_to public_post_favorites_path(@post.id), method: :post do %>
-          <span style="color:black;">❤︎</span>
+          <span style="color:silver;">❤︎</span>
           <% end %></p>
         <% end %>
       <% end %><br>
+      <div><% if @post.image.attached? %><%= image_tag @post.image, size: "500x400" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></div>
+      <p>投稿日時：<%= @post.created_at.to_s(:datetime_jp) %></p>
       <label>この投稿の登録場所</label><br>
       <label><%= @post.address %></label>
       <!--　https://3306e9bf68454a5294b20f5c7c676ca9.vfs.cloud9.us-east-1.amazonaws.com/public/posts/8 -->
@@ -36,8 +39,8 @@
           <% end %>
       </div>
       <script>
-        let map
-        let geocoder
+        let map;
+        let geocoder;
         function initMap(){
           geocoder = new google.maps.Geocoder()
           // console.log(geocoder)
@@ -63,33 +66,35 @@
         }
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
-    </div>
-    <div class="col col-7">
-      <div><% if @post.image.attached? %><%= image_tag @post.image, size: "500x600" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></div>
-      <p>投稿日時：<%= @post.created_at.to_s(:datetime_jp) %></p>
-      
+
+
     </div>
   </div>
   <div class="row">
     <div class="col">
-      
+
     <h6>コメントをする</h6>
-    <%# form_with model:[@post, @comment], method: :post do |f| %>
-    <%= form_with url: public_post_comments_path(@post.id), method: :post do |f| %>
-      <%= f.text_area :comment_content %>
-      <%= f.hidden_field :post_id, value: @post.id %>
-      <%= f.submit 'コメントする' %>
+    <% if user_signed_in? %>
+      <%# form_with model:[@post, @comment], method: :post do |f| %>
+      <%= form_with url: public_post_comments_path(@post.id), method: :post do |f| %>
+        <%= f.text_area :comment_content %>
+        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= f.submit 'コメントする' %>
+      <% end %>
+    <% else %>
+    <p><strong>コメントするには<%= link_to"ログイン", new_user_session_path %>・<%= link_to "新規登録", new_user_registration_path %>が必要です。</strong></p>
     <% end %>
-    
+
     <h6>コメント一覧</h6>
     <% @comments.each do |comment| %>
       <table>
         <tr>
-          <td><%= link_to public_user_path(comment.user.id) do %><%= comment.user.user_nickname %><% end %></td>
-          <th class="th-width"><%= comment.comment_content %></th>
+          <th class="th-comment"><%= link_to public_user_path(comment.user.id) do %><%= comment.user.user_nickname %><% end %></th>
+          <td class="td-width"><%= comment.comment_content %></td>
+          <td><% if comment.user.id == current_user&.id %><%= link_to "削除する", public_post_comment_path(comment.post.id, comment.id), method: :delete %><% end %></td>
         </tr>
       </table>
-      
+
     <% end %>
 
     </div>

@@ -1,7 +1,7 @@
 <div class="container">
   <h3><strong><%= @post.title %></strong></h3>
   <div class="row">
-    <div class="col col-5">
+    <div class="col">
       <table>
           <tr>
             <th>公開ステータス</th>
@@ -21,12 +21,14 @@
           </tr>
           <tr>
               <th></th>
-              <td><%= link_to "この投稿を非表示にする", edit_admin_post_path %></td>
+              <td><% if @post.is_active == true %><%= link_to "この投稿を非表示にする", edit_admin_post_path %><% end %></td>
           </tr>
       </table>
       <p><%= @post.explanation %></p>
+      <div><% if @post.image.attached? %><%= image_tag @post.image, size: "600x500" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></div>
+      <label>この投稿の登録場所</label><br>
       
-      <!--　https://3306e9bf68454a5294b20f5c7c676ca9.vfs.cloud9.us-east-1.amazonaws.com/public/posts/8 -->
+       <!--　https://3306e9bf68454a5294b20f5c7c676ca9.vfs.cloud9.us-east-1.amazonaws.com/public/posts/8 -->
       <div id='map' class="<%= @post.address %>"></div>
       <script>
         let map
@@ -57,9 +59,6 @@
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
     </div>
-    <div class="col col-7">
-      <div><% if @post.image.attached? %><%= image_tag @post.image, size: "500x600" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></div>
-    </div>
   </div>
   <div class="row">
     <div class="col">
@@ -71,7 +70,7 @@
           <th><%= comment.comment_content %></th>
         </tr>
       </table>
-      
+    <% end %>  
     </div>
   </div>
 </div>

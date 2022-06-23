@@ -1,6 +1,7 @@
 class Admin::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
   end
 
   def edit
@@ -10,8 +11,12 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if admin_signed_in?
-    @post.update(post_params)
-    redirect_to admin_homes_top_path
+      if params[:post].nil?
+        flash[:alert] = '「この投稿を削除する」ボタンを押してから削除してください'
+      return redirect_to admin_post_path(@post.id)
+      end
+      @post.update(post_params)
+  　   redirect_to admin_homes_top_path
     end
   end
   

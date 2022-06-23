@@ -15,8 +15,12 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     @post.address = "#{params[:post][:prefecture]}#{params[:post][:city]}#{params[:post][:address]}"
-    @post.save
-    redirect_to public_post_path(@post.id)
+    if @post.save
+      redirect_to public_post_path(@post.id)
+    else
+      render :new
+      flash[:notice] = ""
+    end
   end
 
   def show
@@ -28,9 +32,15 @@ class Public::PostsController < ApplicationController
     end    #投稿詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
   end
   
+  
+  
   def update
     @post = Post.find(params[:id])
     @user = current_user.id
+    if params[:post].nil?
+      flash[:alert] = '「この投稿を削除する」ボタンを押してから削除してください'
+      return redirect_to public_post_path(@post.id) 
+    end
     @post.update(post_params)
     redirect_to public_user_path(current_user.id)
   end

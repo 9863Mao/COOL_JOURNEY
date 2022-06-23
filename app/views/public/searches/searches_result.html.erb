@@ -6,10 +6,9 @@
       <table class="table table-hover table-inverse">
         <!--検索対象モデルがUserの時 -->
         <% if admin_signed_in? %>
-          <% if @range == "User" %>
+          <% if @range == "ユーザー" %>
             <tbody>
-              <% @users.each do |user| %>
-                <% if user.is_active == false %>
+              <% @users_page.each do |user| %>
                 <tr>
                   <td><%= link_to admin_user_path(user.id) do %><%= user.user_nickname %><% end %></td>
                   <td><%= image_tag user.get_profile_image(50,50) %></td>
@@ -19,30 +18,37 @@
                   <td><%= user.self_introduction %></td>
                   <td><%= user.created_at.to_s(:datetime_jp) %></td>
                 </tr>
-                <% end %>
               <% end %>
             </tbody>
+            <%= paginate @users_page %>
           <% else %>
             <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
             <tbody>
-              <% @posts.each do |post| %>
+              <% @posts_page.each do |post| %>
                 <% if post.is_active == true %>
                 <tr>
                   <td><%= post.is_active %></td>
                   <td><%= link_to admin_post_path(post.id) do %><%= post.title %><% end %></td>
-                  <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></td>
+                  <td>
+                    <% if post.image.attached? %>
+                      <%= image_tag post.image, size: "50x50" %>
+                    <% else %>
+                      <p>この投稿には画像が投稿されていません。</p>
+                    <% end %>
+                  </td>
                   <td>投稿日時:<%= post.created_at.to_s(:datetime_jp) %></td>
-                  <td><%= post.favorites.count %>いいね</td>
+                  <td id="heart"><%= post.favorites.count %>♥</td>
                 </tr>
                 <% end %>
               <% end %>
             </tbody>
+            <%= paginate @posts_page %>
           <% end %>
         <% else %>
-          <% if @range == "User" %>
+          <% if @range == "ユーザー" %>
             <tbody>
-              <% @users.each do |user| %>
-                <% if user.is_active == false %>
+              <% @users_page.each do |user| %>
+                <% if user.is_active == true %>
                 <tr>
                   <td><%= link_to public_user_path(user.id) do %><%= user.user_nickname %><% end %></td>
                   <td><%= image_tag user.get_profile_image(50,50), class: "rounded-circle"  %></td>
@@ -54,20 +60,22 @@
                 <% end %>
               <% end %>
             </tbody>
+            <% paginate @users_page %>
           <% else %>
             <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
             <tbody>
-              <% @posts.each do |post| %>
+              <% @posts_page.each do |post| %>
                 <% if post.is_active == true %>
                 <tr>
                   <td><%= link_to public_post_path(post.id) do %><%= post.title %><% end %></td>
                   <td><% if post.image.attached? %><%= image_tag post.image, size: "50x50" %><% else %><p>この投稿には画像が投稿されていません。</p><% end %></td>
                   <td>投稿日時:<%= post.created_at.to_s(:datetime_jp) %></td>
-                  <td><%= post.favorites.count %>いいね</td>
+                  <td id="heart"><%= post.favorites.count %>♥</td>
                 </tr>
                 <% end %>
               <% end %>
             </tbody>
+            <%= paginate @posts_page %>
           <% end %>
         <% end %>
       </table>

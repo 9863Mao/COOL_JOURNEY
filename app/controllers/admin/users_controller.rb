@@ -3,14 +3,16 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = Post.where(user_id: params[:id])
   end
-
-  def edit
+  
+  def unsubscribe
     @user = User.find(params[:id])
-    if admin_signed_in?
-      @user.update(user_params)
-      redirect_to admin_user_path(@user.id)
-    end
+    
+    @user.update(is_active: false)
+    reset_session
+    flash[:notice] = "退会しました。"
+    redirect_to admin_homes_top_path
   end
+
   
   private
   def user_params

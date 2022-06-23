@@ -2,10 +2,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'homes/top'
+    patch 'user/unsubscribe' => "users#unsubscribe"
     resources :posts, only: [:show, :edit, :update]
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :update]
   end
   namespace :public do
+    
     get 'users/home' => "users#home"
     get "searches", to: "searches#searches_result"
     get 'posts/get_city', to: 'posts#get_city'
@@ -24,6 +26,11 @@ Rails.application.routes.draw do
       resource :follows, only: [:create, :destroy]
       get 'followings' => 'follows#followings', as: 'followings'
       get 'followers' => 'follows#followers', as: 'followers'
+    end
+    resources :users do
+      member do
+        get :favorites
+      end
     end
   end
   

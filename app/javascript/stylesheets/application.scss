@@ -1,9 +1,10 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
-
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+  
 #map {
-  height: 60%;
-  width: 100%;
+  height: 300px;
+  width: 300px;
 }
 
 #header {
@@ -39,8 +40,48 @@ table {
     border-collapse:  collapse; /* セルの線を重ねる */
 }
 
-th.th-width {
+table thead{
+  color: #000022 ;
+  font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',cursive;
+  background: linear-gradient(to bottom right, #BBFFFF, #BAD3FF);
+}
+table tbody{
+  border-bottom: solid 1px #ccc;
+}
+
+td.td-width {
     width:  100px;              /* 幅指定 */
     height: 20px; /* 高さ指定 */
     padding-left: 40px;
+}
+
+th{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+th.th-comment{
+  color: black ;
+  background: white ;
+}
+
+ 
+h2{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+h3{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+h5{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+#heart{
+  color: red;
+}
+#alert{
+  color: red;
+  font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',cursive;
+  
 }

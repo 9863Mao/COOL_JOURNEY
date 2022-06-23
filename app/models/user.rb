@@ -3,6 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  validates :first_name, presence: true, length: {maximum:10}
+  validates :last_name, presence: true, length: {maximum:10}
+  validates :telephone_number, presence: true, length: {maximum:15}
+  validates :user_nickname, presence: true, length: {maximum:20}
+  
   # フォローした、されたの関係
   has_many :follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
@@ -13,6 +19,8 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments
   has_one_attached :profile_image
+  
+  scope :active_data, -> { where(is_active: true) }
   
   def self.looks(search, word)
     if search == "perfect_match"
@@ -39,7 +47,7 @@ class User < ApplicationRecord
   
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed

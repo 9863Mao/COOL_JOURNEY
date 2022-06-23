@@ -1,0 +1,25 @@
+# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
+ja:
+  activerecord:
+    attributes:
+      user:
+        first_name: "姓"
+        last_name: "名"
+        telephone_number: "電話番号"
+        user_nickname: "ニックネーム"
+        image: "画像"
+        email: "メールアドレス"
+        password: "パスワード"
+        confirmation_sent_at: "パスワード確認送信時刻"
+        confirmation_token: "パスワード確認用トークン"
+        Password confirmation: "パスワード（確認用）"
+      post:
+        title: "タイトル"
+        address: "住所"
+        image: "画像"
+      not_saved:
+        one: "エラーが発生したため %{resource} は保存されませんでした。"
+        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+  errors:
+    messages:
+      not_saved: "登録できませんでした。"
