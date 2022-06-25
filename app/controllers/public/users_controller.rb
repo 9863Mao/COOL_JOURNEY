@@ -23,7 +23,7 @@ class Public::UsersController < ApplicationController
   def unsubscribe
     @user = current_user
 
-    @user.update(is_active: false)
+    @user.update(is_active: true)
     reset_session
     flash[:notice] = "退会しました。"
     redirect_to root_path

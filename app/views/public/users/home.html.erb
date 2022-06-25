@@ -13,6 +13,7 @@
               </tr>
             </thead>
             <% @posts_page.each do |post| %>
+              <% if post.user.is_active == false %>
                 <% if post.is_active == true %>
                 <tbody>
                   <tr>
@@ -23,6 +24,7 @@
                   </tr>
                 </tbody>
                 <% end %>
+              <% end %>
             <% end %>
           </table>
             <%= paginate @posts_page %>
@@ -40,6 +42,7 @@
           </tr>
         </thead>
         <% @posts_new.each do |post| %>
+          <% if post.user.is_active == false %>
           <% if post.is_active == true %>
             <tbody>
               <tr>
@@ -49,6 +52,7 @@
                 <td><%= post.created_at.to_s(:datetime_jp) %></td>
               </tr>
             </tbody>
+          <% end %>
           <% end %>
         <% end %>
       </table>

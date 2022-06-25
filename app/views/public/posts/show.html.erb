@@ -1,5 +1,7 @@
 <div class="container">
-  <% if @post.is_active == true %>
+  <% if @post.user.is_active == true %>
+  <h2>この投稿は投稿主が退会しているため表示できません</h2>
+  <% elsif @post.is_active == true %>
   <h3><strong><%= @post.title %></strong></h3>
   <div id='alert'><%= flash[:alert] %></div>
   <div class="row">
@@ -99,8 +101,8 @@
 
     </div>
   </div>
-    <% else %>
-      <h1>この投稿は投稿主によって削除されました。</h1>
-    <% end %>
+  <% else %>
+    <h1>この投稿は投稿主によって削除されました。</h1>
+  <% end %>
 </div>
 
