@@ -14,7 +14,7 @@
           <td>フォロワー<%= @user.followers.count %></td>
         </tr>
       </table>
-      <p><% if @user.is_active == true %><%= link_to "このユーザーを退会させる", admin_user_unsubscribe_path(id: @user.id), method: :patch %><% end %></p>
+      <p><% if @user.is_active == false %><%= link_to "このユーザーを退会させる", admin_user_unsubscribe_path(id: @user.id), method: :patch %><% end %></p>
     </div>
     <div class="col col-4">
       <%= @user.self_introduction %>
